@@ -27,8 +27,15 @@ const MESSAGES = {
     option3: `Sorteio de prêmios todo ano.\n\nAtendimento médico ilimitado 24h por dia.\n\nReceitas de medicamentos`,
     option4: `Você pode aderir aos nossos planos diretamente pelo nosso site ou pelo WhatsApp.\n\nApós a adesão, você terá acesso imediato`,
     option5: `Se você tiver outras dúvidas ou precisar de mais informações, por favor, fale aqui nesse WhatsApp ou visite nosso site: https://site.com`,
+    defaultError: "Desculpe, não entendi sua mensagem. Por favor, escolha uma das opções abaixo:",
     link: `Link para cadastro: https://site.com`
 };
+
+// Lista de palavras-chave para correspondência
+const KEYWORDS = ['menu', 'oi', 'olá', 'ola', 'dia', 'tarde', 'noite'];
+
+// Gerar expressão regular dinamicamente
+const keywordRegex = new RegExp(`\\b(${KEYWORDS.join('|')})\\b`, 'i');
 
 // Inicialização do cliente
 client.on('qr', (qr: string) => generate(qr, { small: true }));
@@ -37,16 +44,15 @@ client.initialize();
 
 // Função para lidar com mensagens
 client.on('message', async (msg: Message) => {
-    if (msg.body.match(/(menu|Menu|dia|tarde|noite|oi|Oi|Olá|olá|ola|Ola)/i) && msg.from.endsWith('@c.us')) {
-        const chat: Chat = await msg.getChat();
-        const contact: Contact = await msg.getContact();
-        const name: string = contact.pushname || 'Usuário';
+    const chat: Chat = await msg.getChat();
+    const contact: Contact = await msg.getContact();
+    const name: string = contact.pushname || 'Usuário';
 
+    // Verificar correspondência com palavras-chave
+    if (keywordRegex.test(msg.body) && msg.from.endsWith('@c.us')) {
         await simulateTyping(chat, 3000);
         await client.sendMessage(msg.from, MESSAGES.greeting(name));
     }
-
-    const chat: Chat = await msg.getChat();
 
     switch (msg.body) {
         case '1':
@@ -82,6 +88,11 @@ client.on('message', async (msg: Message) => {
             await client.sendMessage(msg.from, MESSAGES.option5);
             break;
 
-        default: break;
+        default:
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.defaultError);
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.greeting(name));
+            break;
     }
 });
