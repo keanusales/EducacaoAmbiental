@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "Educação Ambiental": "link:",
+    "moment-timezone": "^0.5.45",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": ""
+  },
+  "devDependencies": {
+    "@types/qrcode-terminal": "^0.12.2"
+  }
+}
