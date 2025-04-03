@@ -82,7 +82,6 @@ client.on('message', async (msg: Message) => {
             await client.sendMessage(msg.from, MESSAGES.option5);
             break;
 
-        default:
-            break;
+        default: break;
     }
 });
