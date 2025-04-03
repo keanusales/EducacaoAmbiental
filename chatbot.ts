@@ -52,47 +52,47 @@ client.on('message', async (msg: Message) => {
     if (keywordRegex.test(msg.body.toLowerCase()) && msg.from.endsWith('@c.us')) {
         await simulateTyping(chat, 3000);
         await client.sendMessage(msg.from, MESSAGES.greeting(name));
+    }
 
-        switch (msg.body) {
-            case '1':
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.option1);
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.link);
-                break;
-    
-            case '2':
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.option2);
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.link);
-                break;
-    
-            case '3':
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.option3);
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.link);
-                break;
-    
-            case '4':
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.option4);
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.link);
-                break;
-    
-            case '5':
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.option5);
-                break;
-    
-            default:
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.defaultError);
-                await simulateTyping(chat, 3000);
-                await client.sendMessage(msg.from, MESSAGES.greeting(name));
-                break;
-        }
+    switch (msg.body) {
+        case '1':
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.option1);
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.link);
+            break;
+
+        case '2':
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.option2);
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.link);
+            break;
+
+        case '3':
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.option3);
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.link);
+            break;
+
+        case '4':
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.option4);
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.link);
+            break;
+
+        case '5':
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.option5);
+            break;
+
+        default:
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.defaultError);
+            await simulateTyping(chat, 3000);
+            await client.sendMessage(msg.from, MESSAGES.greeting(name));
+            break;
     }
 });
